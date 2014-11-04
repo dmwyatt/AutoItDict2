@@ -227,8 +227,8 @@ Func testValues()
 
   $aValues = $dict.values()
   $test.assertTrue("dict with 100 items returns array for Dict.values()", IsArray($aValues))
-  $test.assertEquals("dict.pairs() with 100 items returns array with 100 rows", UBound($aValues), 100)
-  $test.assertEquals("dict.pairs() with 100 items returns array with 1 columns", UBound($aValues, $UBOUND_COLUMNS), 0)
+  $test.assertEquals("dict.values() with 100 items returns array with 100 rows", UBound($aValues), 100)
+  $test.assertEquals("dict.values() with 100 items returns array with 1 columns", UBound($aValues, $UBOUND_COLUMNS), 0)
 
   $fGood = True
   For $i = 0 To UBound($aValues) - 1
@@ -236,6 +236,18 @@ Func testValues()
     If Not $aValues[$i] == $dict.get($sKey) Then $fGood = False
   Next
   $test.assertTrue("dict.pairs with 100 items returns accurate values ", $fGood)
+
+  Dim $aDesiredValues[3] = ["key0", "key69", "key11"]
+  $aValues = $dict.values($aDesiredValues)
+  $test.assertTrue("dict.values($aDesiredValues) with array of three keys returns array", IsArray($aValues))
+  $test.assertEquals("dict.values($aDesiredValues) with array of three keys returns array of length 3", UBound($aValues), 3)
+
+  $fGood = True
+  For $i = 0 To 2
+    $sValue = $dict.get($aDesiredValues[$i])
+    If _ArraySearch($aValues, $sValue) == -1 Then $fGood = False
+  Next
+  $test.assertTrue("dict.values($aDesiredValues) with array of three keys returns array with correct values", $fGood)
 
   Return $test
 EndFunc
