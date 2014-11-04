@@ -27,7 +27,7 @@ Func _DictCreate($aInitial=Default, $oIDMe=Default)
     If UBound($aInitial, $UBOUND_COLUMNS) <> 2 Then Return SetError($DICT2_WRONG_ARRAY_DIMENSIONS, 0, $DICT2_DICT_CREATION_FAIL)
 
     For $i = 0 To UBound($aInitial) - 1
-      $_dict.Add($aInitial[$i][0], $aInitial[$i][0])
+      $_dict.Add($aInitial[$i][0], $aInitial[$i][1])
     Next
   EndIf
 
