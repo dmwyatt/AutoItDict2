@@ -141,6 +141,15 @@ Func __increment($this, $key)
 
   Return $this.get($key)
 EndFunc
+
+Func __display($this, $fSort=True, $sTitle="DictDisplay")
+  $aPairs = $this.pairs()
+  If $fSort Then
+    _ArraySort($aPairs)
+  EndIf
+  _ArrayDisplay($aPairs)
+EndFunc
+
 Func __dbg($this, $msg)
   If Not $this.debug_output Then Return
   ConsoleWrite($msg & @CRLF)
