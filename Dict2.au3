@@ -7,14 +7,14 @@ Global Const $DICT2_DICT_CREATION_FAIL = -1
 Global Const $DICT2_NON_ARRAY_INITIAL = 1
 Global Const $DICT2_WRONG_ARRAY_DIMENSIONS = 2
 
+Global Const $__dict2_obj_id = "la;jsd0f9j'34j5;lkdjf[0asuejlakjsd;flj345109j;lajks;lejkr039uj5q;okjas;lkdjf;lkj0q9j;lakj"
+
 _AutoItObject_StartUp()
 
 
 Func _DictCreate($aInitial=Default, $oIDMe=Default)
-  ; Limit global vars by putting this in here.  It's kinda yucky, but oh well.
-  Local $_obj_id = "la;jsd0f9j'34j5;lkdjf[0asuejlakjsd;flj345109j;lajks;lejkr039uj5q;okjas;lkdjf;lkj0q9j;lakj"
   If $oIDMe <> Default Then
-    Return $oIDMe.__dict_object_identifier = $_obj_id
+    Return $oIDMe.__dict_object_identifier = $__dict2_obj_id
   EndIf
 
   ; Create object and dictionary
@@ -33,7 +33,7 @@ Func _DictCreate($aInitial=Default, $oIDMe=Default)
 
   $this.Create()
 
-  $this.AddProperty("__dict_object_identifier", $ELSCOPE_PUBLIC, $_obj_id)
+  $this.AddProperty("__dict_object_identifier", $ELSCOPE_PUBLIC, $__dict2_obj_id)
   $this.AddProperty("_dict", $ELSCOPE_PRIVATE, $_dict)
   $this.AddProperty("debug_output", $ELSCOPE_PUBLIC, False)
 
