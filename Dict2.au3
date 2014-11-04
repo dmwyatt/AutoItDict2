@@ -41,6 +41,7 @@ Func _DictCreate($aInitial=Default, $oIDMe=Default)
   $this.AddMethod("contains", "__contains")
   $this.AddMethod("get", "__get")
   $this.AddMethod("del", "__del")
+  $this.AddMethod("del_all", "__del_all")
   $this.AddMethod("len", "__len")
   $this.AddMethod("pairs", "__pairs")
   $this.AddMethod("keys", "__keys")
@@ -78,6 +79,13 @@ Func __del($this, $key)
     $this._dict.Remove($key)
   EndIf
   $this._dbg($key & " does not exist")
+EndFunc
+
+Func __del_all($this)
+  Local $aKeys = $this.keys()
+  For $key In $aKeys
+    $this.del($key)
+  Next
 EndFunc
 
 Func __len($this)
