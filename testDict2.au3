@@ -47,15 +47,15 @@ Func testCreateWithErroneousParameters()
   $dict = _DictCreate(1)
 
   $err = @error
-  $test.assertEquals("returns $DICT2_DICT_CREATION_FAIL when receive a non-array for initial data", $dict, $DICT2_DICT_CREATION_FAIL)
-  $test.assertEquals("sets @error to $DICT2_NON_ARRAY_INITIAL when initial data is not an array", $err, $DICT2_NON_ARRAY_INITIAL)
+  $test.assertEquals("returns $DICT2_DICT_CREATION_FAIL when receive a non-array for initial data", $dict, $DICT2_ERR_CREATION_FAIL)
+  $test.assertEquals("sets @error to $DICT2_NON_ARRAY_INITIAL when initial data is not an array", $err, $DICT2_ERR_INITIAL_NON_ARRAY)
 
   Local $aInvalidArray[1] = ["wrong"]
   $dict = _DictCreate($aInvalidArray)
 
   $err = @error
-  $test.assertEquals("returns $DICT2_DICT_CREATION_FAIL when array received for initial data has wrong dimensions", $dict, $DICT2_DICT_CREATION_FAIL)
-  $test.assertEquals("sets @error to $DICT2_WRONG_ARRAY_DIMENSIONS when array dimensions are incorrect", $err, $DICT2_WRONG_ARRAY_DIMENSIONS)
+  $test.assertEquals("returns $DICT2_DICT_CREATION_FAIL when array received for initial data has wrong dimensions", $dict, $DICT2_ERR_CREATION_FAIL)
+  $test.assertEquals("sets @error to $DICT2_WRONG_ARRAY_DIMENSIONS when array dimensions are incorrect", $err, $DICT2_ERR_WRONG_DIMENSIONS)
 
   Return $test
 EndFunc

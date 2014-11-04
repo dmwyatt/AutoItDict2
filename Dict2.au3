@@ -3,9 +3,9 @@
 #include <Constants.au3>
 #include-once
 
-Global Const $DICT2_DICT_CREATION_FAIL = -1
-Global Const $DICT2_NON_ARRAY_INITIAL = 1
-Global Const $DICT2_WRONG_ARRAY_DIMENSIONS = 2
+Global Const $DICT2_ERR_CREATION_FAIL = -1
+Global Const $DICT2_ERR_INITIAL_NON_ARRAY = 1
+Global Const $DICT2_ERR_WRONG_DIMENSIONS = 2
 
 Global Const $__dict2_obj_id = "la;jsd0f9j'34j5;lkdjf[0asuejlakjsd;flj345109j;lajks;lejkr039uj5q;okjas;lkdjf;lkj0q9j;lakj"
 
@@ -23,8 +23,8 @@ Func _DictCreate($aInitial=Default, $oIDMe=Default)
 
   ; If we have initial key-value pairs, add them to the dict
   If $aInitial <> Default Then
-    If Not IsArray($aInitial) Then Return SetError($DICT2_NON_ARRAY_INITIAL, 0, $DICT2_DICT_CREATION_FAIL)
-    If UBound($aInitial, $UBOUND_COLUMNS) <> 2 Then Return SetError($DICT2_WRONG_ARRAY_DIMENSIONS, 0, $DICT2_DICT_CREATION_FAIL)
+    If Not IsArray($aInitial) Then Return SetError($DICT2_ERR_INITIAL_NON_ARRAY, 0, $DICT2_ERR_CREATION_FAIL)
+    If UBound($aInitial, $UBOUND_COLUMNS) <> 2 Then Return SetError($DICT2_ERR_WRONG_DIMENSIONS, 0, $DICT2_ERR_CREATION_FAIL)
 
     For $i = 0 To UBound($aInitial) - 1
       $_dict.Add($aInitial[$i][0], $aInitial[$i][1])
