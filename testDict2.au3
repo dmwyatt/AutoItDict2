@@ -16,6 +16,8 @@ $testSuite.addTest(testLen())
 $testSuite.addTest(testContains())
 $testSuite.addTest(testPairs())
 $testSuite.addTest(testValues())
+$testSuite.addtest(testHistogram())
+$testSuite.addTest(testIncrement())
 
 
 $testSuite.finish()
@@ -248,6 +250,56 @@ Func testValues()
     If _ArraySearch($aValues, $sValue) == -1 Then $fGood = False
   Next
   $test.assertTrue("dict.values($aDesiredValues) with array of three keys returns array with correct values", $fGood)
+
+  Return $test
+EndFunc
+
+Func testHistogram()
+  $test = newTest("Dict.histogram makes histograms")
+  $dict = _DictCreate()
+
+  Local $aArray[1000]
+  For $i = 0 To 999
+    $aArray[$i] = Random(1, 10, 1)
+  Next
+
+  $iPreHistLen = $dict.len()
+  $dict.histogram($aArray)
+
+  $test.assertTrue("dict.histogram($aArray) modifies self", $iPreHistLen <> $dict.len())
+
+  $fGood = True
+  For $i = 1 To 10
+      If Not $dict.contains($i) Then $fGood = False
+  Next
+  If Not $dict.len() == 10 Then $fGood = False
+
+  $test.assertTrue("dict.histogram($aArray) returns dict with appropriate keys", $fGood)
+
+  $fGood = True
+  For $i = 1 To 10
+    If Not $dict.get($i) > 50 Then $fGood = False
+  Next
+
+  $test.assertTrue("dict.histogram($aArray) returns correct-ish values.", $fGood)
+
+  Return $test
+EndFunc
+
+Func testIncrement()
+  $test = newTest("Dict.increment increments")
+  $dict = _DictCreate()
+
+  $i = $dict.increment("nope")
+  $test.assertEquals("dict.increment on non existent key creates key and sets to 1", 1, $dict.get("nope"))
+  $test.assertEquals("dict.increment on non existent key returns 1", 1 , $i)
+
+  $i = $dict.increment("nope")
+  $test.assertEquals("dict.increment on existent key with int value increases it by 1", $i, 2)
+
+  $dict.set("not_an_int", "yep")
+  $dict.increment("not_an_int")
+  $test.assertEquals("dict.increment on existent key with non-int value sets it to 1", $dict.get("not_an_int"), 1)
 
   Return $test
 EndFunc

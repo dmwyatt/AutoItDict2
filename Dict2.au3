@@ -47,6 +47,10 @@ Func _DictCreate($aInitial=Default, $oIDMe=Default)
   $this.AddMethod("keys", "__keys")
   $this.AddMethod("values", "__values")
 
+  $this.AddMethod("histogram", "__histogram")
+  $this.AddMethod("increment", "__increment")
+
+  $this.AddMethod("display", "__display")
 
   $this.AddMethod("_dbg", "__dbg")
 
@@ -122,6 +126,21 @@ Func __values($this, $aKeyList=Default)
   Return $aValues
 EndFunc
 
+Func __histogram($this, $aArray)
+  For $value In $aArray
+    $iCount = $this.increment($value)
+  Next
+EndFunc
+
+Func __increment($this, $key)
+  If $this.contains($key) And IsInt($this.get($key)) Then
+    $this.set($key, $this.get($key) + 1)
+  Else
+    $this.set($key, 1)
+  EndIf
+
+  Return $this.get($key)
+EndFunc
 Func __dbg($this, $msg)
   If Not $this.debug_output Then Return
   ConsoleWrite($msg & @CRLF)
