@@ -24,7 +24,7 @@ Func _DictCreate($aInitial=Default, $oIDMe=Default)
   ; If we have initial key-value pairs, add them to the dict
   If $aInitial <> Default Then
     If Not IsArray($aInitial) Then Return SetError($DICT2_NON_ARRAY_INITIAL, 0, $DICT2_DICT_CREATION_FAIL)
-    If Not UBound($aInitial, $UBOUND_COLUMNS) == 2 Then Return SetError($DICT2_WRONG_ARRAY_DIMENSIONS, 0, $DICT2_DICT_CREATION_FAIL)
+    If UBound($aInitial, $UBOUND_COLUMNS) <> 2 Then Return SetError($DICT2_WRONG_ARRAY_DIMENSIONS, 0, $DICT2_DICT_CREATION_FAIL)
 
     For $i = 0 To UBound($aInitial) - 1
       $_dict.Add($aInitial[$i][0], $aInitial[$i][0])
