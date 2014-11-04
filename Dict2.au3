@@ -38,7 +38,7 @@ Func _DictCreate($aInitial=Default, $oIDMe=Default)
   $this.AddProperty("debug_output", $ELSCOPE_PUBLIC, False)
 
   $this.AddMethod("set", "__set")
-  $this.AddMethod("in", "__in")
+  $this.AddMethod("contains", "__contains")
   $this.AddMethod("get", "__get")
   $this.AddMethod("del", "__del")
   $this.AddMethod("len", "__len")
@@ -62,7 +62,7 @@ Func __set($this, $key, $value)
   EndIf
 EndFunc
 
-Func __in($this, $key)
+Func __contains($this, $key)
   Return $this._dict.Exists($key)
 EndFunc
 
