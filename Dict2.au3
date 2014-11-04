@@ -1,5 +1,5 @@
 #include <AutoItObject\AutoItObject.au3>
-#include <Array.au3>
+
 #include <Constants.au3>
 #include-once
 
