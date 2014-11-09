@@ -1,5 +1,6 @@
 #include <AutoItObject\AutoItObject.au3>
 
+#include <Array.au3>
 #include <Constants.au3>
 #include-once
 
@@ -150,12 +151,16 @@ Func __increment($this, $key)
   Return $this.get($key)
 EndFunc
 
-Func __display($this, $fSort=True, $sTitle="DictDisplay")
+Func __display($this, $fSort=True, $fSortOnValues=True, $sTitle="DictDisplay")
   $aPairs = $this.pairs()
   If $fSort Then
-    _ArraySort($aPairs)
+    If $fSortOnValues Then
+      _ArraySort($aPairs, 1, 0, 0, 1)
+    Else
+      _ArraySort($aPairs, 1)
+    EndIf
   EndIf
-  _ArrayDisplay($aPairs)
+  _ArrayDisplay($aPairs, $sTitle)
 EndFunc
 
 Func __dbg($this, $msg)
