@@ -283,6 +283,35 @@ Func testHistogram()
 
   $test.assertTrue("dict.histogram($aArray) returns correct-ish values.", $fGood)
 
+  Dim $a2dArray[100][10]
+
+  For $x = 0 To UBound($a2dArray) - 1
+    For $y = 0 To UBound($a2dArray, $UBOUND_COLUMNS) - 1
+      $a2dArray[$x][$y] = Random(1, 10, 1)
+    Next
+  Next
+
+  $dict2 = _DictCreate()
+  $iPreHistLen = $dict2.len()
+
+  $dict2.histogram($a2dArray)
+  $test.assertTrue("dict.histogram($a2dArray) modifies self", $iPreHistLen <> $dict2.len())
+
+  $fGood = True
+  For $i = 1 To 10
+      If Not $dict2.contains($i) Then $fGood = False
+  Next
+  If Not $dict2.len() == 10 Then $fGood = False
+
+  $test.assertTrue("dict.histogram($a2dArray) returns dict with appropriate keys", $fGood)
+
+  $fGood = True
+  For $i = 1 To 10
+    If Not $dict2.get($i) > 50 Then $fGood = False
+  Next
+
+  $test.assertTrue("dict.histogram($a2dArray) returns correct-ish values.", $fGood)
+
   Return $test
 EndFunc
 

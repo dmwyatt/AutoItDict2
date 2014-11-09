@@ -127,9 +127,17 @@ Func __values($this, $aKeyList=Default)
 EndFunc
 
 Func __histogram($this, $aArray)
-  For $value In $aArray
-    $iCount = $this.increment($value)
-  Next
+  If UBound($aArray, $UBOUND_DIMENSIONS ) == 1 Then
+    For $value In $aArray
+      $iCount = $this.increment($value)
+    Next
+  ElseIf UBound($aArray, $UBOUND_DIMENSIONS) == 2 Then
+    For $x = 0 To UBound($aArray, $UBOUND_ROWS) -1
+      For $y = 0 To UBound($aArray, $UBOUND_COLUMNS)-1
+        $iCount = $this.increment($aArray[$x][$y])
+      Next
+    Next
+  EndIf
 EndFunc
 
 Func __increment($this, $key)
